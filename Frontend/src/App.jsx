@@ -5,6 +5,7 @@ import { Routes , Route} from 'react-router-dom'
 import Mentor from './components/Mentors/Mentor'
 import SignIn from './components/SIgnIn/SignIn'
 import About from './components/About/About'
+import Signup from './components/Signup/Signup'
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path='/mentors' element={<Mentor />} />
         <Route path='/about' element={<About />} />
         <Route path='/signin' element={<SignIn />} />
+        <Route path='/signup' element={<Signup />} />
 
       </Routes>
     </div>
