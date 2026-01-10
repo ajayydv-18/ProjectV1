@@ -9,7 +9,7 @@ import About from './components/About/About'
 const App = () => {
   return (
     <div>
-      <NavBar />
+      
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/mentors' element={<Mentor />} />

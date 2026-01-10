@@ -1,10 +1,9 @@
 import React from 'react'
+import NavBar from '../NavBar/NavBar'
 
 const Mentor = () => {
   return (
-    <div>
-        <h1>This is the mentor page</h1>
-    </div>
+    <NavBar />
   )
 }
 
