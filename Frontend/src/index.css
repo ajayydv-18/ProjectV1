@@ -1,2 +1,7 @@
 @import "tailwindcss";
+@font-face {
+  font-family: 'gilroy';
+  src: url('../../src/assets/Fonts/Gilroy-Medium.ttf');
+  font-weight: 700;
+}
 
