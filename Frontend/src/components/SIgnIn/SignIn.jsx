@@ -1,23 +1,31 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-
+import { toast } from "react-toastify";
+import { AuthContext } from "../context/authContext";
+import { useContext } from "react";
 const SignIn = () => {
-  //submit handler
-  const submitHandler = (e) => {
-    e.preventDefault();
-    const newData = [...userDetails];
-    newData.push({ userEmail, userPassword });
-    setUserDetails(newData);
 
-    setUserEmail("");
-    setUserPassword("");
-    console.log(userDetails);
-  };
-
-  //for storing data
+  let {handleLogin} = useContext(AuthContext);
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const [userDetails, setUserDetails] = useState([]);
+  //submit handler
+  const submitHandler = async (e) => {
+    
+    try{
+      e.preventDefault(); 
+      let msg = await handleLogin(userEmail , userPassword);
+      console.log(msg);
+      toast(msg , {theme: "dark"});
+    }
+    catch(e){
+          console.log(e.response.data);
+          toast.error(e.response.data.msg , {theme: "dark" })
+    }
+   
+  };
+
+
+
 
   return (
     <div className=" main h-screen w-screen bg-[#000000] select-none flex items-center justify-center p-10">
