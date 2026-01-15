@@ -33,8 +33,8 @@ export const signup = async (req , res)=>{
         res.status(201).json({ message: "User signed in successfully", success: true, user });
 
         }
-    catch(e){
-        console.log(e);
+    catch(error){
+        console.log(error);
         res.status(500).json({ message: "Server error", error });
     }
 
