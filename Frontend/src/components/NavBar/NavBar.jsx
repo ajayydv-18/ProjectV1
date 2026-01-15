@@ -4,13 +4,12 @@ import { NavLink } from "react-router-dom";
 const NavBar = () => {
   return (
     <div className="h-25 w-screen bg-[#000000] flex items-center justify-between p-6">
-      <div className="h-25 w-25 ">
-        <NavLink to="/">
-          <img
-            className="h-full w-full object-cover object-center"
-            src="../../src/assets/Images/sellogo.png"
-            alt=""
-          />
+      <div className="flex items-center justify ">
+        <NavLink className='flex items-center justify-center' to="/">
+        <img className="h-30 w-30 " src="../../src/assets/Images/sellogo.png" alt="" />
+          <h1  className="text-[#031b38] text-3xl font-bold">
+            Lex<span className="text-[#dbaa2f] textl-3xl font-semibold">Bridge</span>
+          </h1>
         </NavLink>
       </div>
       <div className="flex gap-8 p-6 items-center">
