@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
-    <div className="h-25 w-screen bg-[#000000] flex items-center justify-between p-6">
+    <div className="h-25  bg-[#000000] flex items-center justify-between p-6">
       <div className="flex items-center justify ">
         <NavLink className='flex items-center justify-center' to="/">
         <img className="h-30 w-30 " src="../../src/assets/Images/sellogo.png" alt="" />
