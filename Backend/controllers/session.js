@@ -13,7 +13,7 @@ export const booking = async (req , res) => {
      console.log(formData);
      let newSession = new Session(formData);
      let code = uuid();
-     newSession.meetingLink = `http://localhost:5173/${code}`
+     newSession.meetingLink = `https://project-v1-338y.vercel.app/${code}`
      await newSession.save();
      console.log(newSession);
      res.json({message : "Booking confirmed"});
