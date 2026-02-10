@@ -13,7 +13,7 @@ import sessionRouter from "./routes/session.js";
 app.use(express.json());
 
 app.use(cors({
-  origin: "http://localhost:5173", // <-- exact frontend URL
+  origin: ['http://localhost:5173' , 'https://project-v1-338y.vercel.app'], // <-- exact frontend URL
   credentials: true               // <-- allow cookies
 }));
 
