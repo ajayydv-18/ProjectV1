@@ -6,7 +6,7 @@ const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [now, setNow] = useState(new Date());
-
+/// checking
   // 1. Update current time every minute to refresh "Join" button status
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 60000);
