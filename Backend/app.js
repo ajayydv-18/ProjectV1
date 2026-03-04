@@ -5,6 +5,7 @@ import {createServer} from "node:http";
 import { connectToSocket } from "./controllers/socketManager.js";
 import  cors  from "cors";
 import mongoose, { mongo } from "mongoose";
+import cookieParser from "cookie-parser"; // 1. Import
 import userRouter from "./routes/user.js"
 const app = express();
 const server = createServer(app);
