@@ -9,8 +9,10 @@ import userRouter from "./routes/user.js"
 const app = express();
 const server = createServer(app);
 const io = connectToSocket(server);
-import sessionRouter from "./routes/session.js";
+app.use(cookieParser()); 
 app.use(express.json());
+import sessionRouter from "./routes/session.js";
+
 
 app.use(cors({
   origin: ['http://localhost:5174' , 'https://project-v1-338y.vercel.app'], // <-- exact frontend URL
