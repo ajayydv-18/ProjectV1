@@ -78,15 +78,24 @@ export const login = async (req , res)=>{
 }
 
 
-export const checkAuth = ("/checkAuth", (req, res) => {
+export const profile =  ("/profile", async (req, res) => {
+try {
+        const token = req.cookies.token; // Cookie se token liya
+        if (!token) return res.status(401).json({ message: "No token" });
 
-  console.log("verify req is coming"+ req.cookies);
-  if (req.cookies?.token) {
-    // optionally verify the token
-    return res.json({ authenticated: true });
-  }
-  res.json({ authenticated: false });
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.id).select("-password");
+        
+        if (!user) return res.status(404).json({ message: "User not found" });
+        
+        res.status(200).json({ user });
+    } catch (error) {
+        res.status(401).json({ message: "Invalid token" });
+    }
 });
+
+
+
 
 
 
