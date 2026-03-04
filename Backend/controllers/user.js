@@ -3,6 +3,9 @@ import User from "../models/user.js";
 import { createSecretToken } from "../utils/createToken.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+
+
+
 export const signup = async (req , res)=>{
    try{
       let {username , email , password} = req.body;
@@ -87,24 +90,31 @@ export const login = async (req , res)=>{
     }
 }
 
-export const profile =  ("/profile", async (req, res) => {
-try {
-        console.log("refresh req aa rhi h");
-        console.log(req);
-        const token = req.cookies.token; // Cookie se token liya
-        if (!token) return res.status(401).json({ message: "No token" });
+export const profile = async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) return res.status(401).json({ message: "No token found in cookies" });
 
-        const decoded = jwt.verify(token, process.env.TOKEN_KEY);
-        const user = await User.findById(decoded.id).select("-password");
-        
-        if (!user) return res.status(404).json({ message: "User not found" });
-        
-        res.status(200).json({ user });
-    } catch (error) {
-        res.status(401).json({ message: "Invalid token" });
-    }
-});
+    // Debugging Logs
+    console.log("Token received:", token.substring(0, 10) + "..."); 
+    console.log("Using Secret Key:", process.env.TOKEN_KEY ? "Key exists" : "KEY IS MISSING!");
 
+    const decoded = jwt.verify(token, process.env.TOKEN_KEY);
+    console.log("Decoded Payload:", decoded);
+
+    const user = await User.findById(decoded.id).select("-password");
+    if (!user) return res.status(404).json({ message: "User not found in DB" });
+
+    res.status(200).json({ user });
+  } catch (error) {
+    // YEH SABSE ZAROORI HAI
+    console.log("JWT VERIFY ERROR:", error.message); 
+    res.status(401).json({ 
+      message: "Invalid token", 
+      reason: error.message // Frontend ko bhi reason bhejein check karne ke liye
+    });
+  }
+};
 
 
 
