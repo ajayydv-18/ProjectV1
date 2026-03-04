@@ -2,8 +2,8 @@ import express from "express";
 const router = express.Router();
 import User from '../models/user.js'
 import { createSecretToken } from "../utils/createToken.js";
-import {signup , login , logout} from "../controllers/user.js";
-import { checkAuth } from "../controllers/user.js";
+import {signup , login , logout , profile} from "../controllers/user.js";
+
 
 
 router.post("/signup" , signup);
