@@ -3,6 +3,7 @@ import User from "../models/user.js";
 import { createSecretToken } from "../utils/createToken.js";
 import bcrypt from "bcrypt";
 
+
 export const signup = async (req , res)=>{
    try{
       let {username , email , password} = req.body;
@@ -28,8 +29,10 @@ export const signup = async (req , res)=>{
         let token = createSecretToken(user._id);
         console.log(user);
         res.cookie("token", token, {
-            withCredentials: true,
-            httpOnly: false,
+                httpOnly: true,         // Security ke liye best (JS access nahi kar payega)
+                secure: true,           // Render (HTTPS) ke liye mandatory hai
+                sameSite: "none",       // Localhost aur Render ke beech communication ke liye must hai
+                maxAge: 24 * 60 * 60 * 1000, // 1 din ki expiry (Iske bina refresh par gayab hogi)
         });
         res.status(201).json({ message: "User signed in successfully", success: true, user });
 
@@ -60,13 +63,21 @@ export const login = async (req , res)=>{
 
         let token = createSecretToken(user._id);
 
-        if(isPasswordCorrect){
+        if(isPasswordCorrect) {
             res.cookie("token", token, {
-            withCredentials: true,
-            httpOnly: false,
-           });
-           res.status(201).json({ message: "User logged in successfully", success: true, user });
-        }else{
+                httpOnly: true,         // Security ke liye best (JS access nahi kar payega)
+                secure: true,           // Render (HTTPS) ke liye mandatory hai
+                sameSite: "none",       // Localhost aur Render ke beech communication ke liye must hai
+                maxAge: 24 * 60 * 60 * 1000, // 1 din ki expiry (Iske bina refresh par gayab hogi)
+            });
+
+            res.status(201).json({ 
+                message: "User logged in successfully", 
+                success: true, 
+                user 
+            });
+        }
+        else{
             return  res.status(401).json({msg: "Invalid credentials"});
         }
 
@@ -77,9 +88,10 @@ export const login = async (req , res)=>{
     }
 }
 
-
 export const profile =  ("/profile", async (req, res) => {
 try {
+        console.log("refresh req aa rhi h");
+        console.log(req);
         const token = req.cookies.token; // Cookie se token liya
         if (!token) return res.status(401).json({ message: "No token" });
 
