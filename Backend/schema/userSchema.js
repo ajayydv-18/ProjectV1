@@ -12,6 +12,11 @@ const userSchema = new Schema({
     type: String,
     required: [true, "Your username is required"],
    },
+   role: {
+      type: String,
+      enum: ["user", "mentor", "admin"], // Teeno roles handle ho jayenge
+      default: "user"
+    },
    password: {
     type: String,
     required: [true, "Your password is required"],
