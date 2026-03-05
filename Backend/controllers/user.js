@@ -95,9 +95,6 @@ export const profile = async (req, res) => {
     const token = req.cookies.token;
     if (!token) return res.status(401).json({ message: "No token found in cookies" });
 
-    // Debugging Logs
-    console.log("Token received:", token.substring(0, 10) + "..."); 
-    console.log("Using Secret Key:", process.env.TOKEN_KEY ? "Key exists" : "KEY IS MISSING!");
 
     const decoded = jwt.verify(token, process.env.TOKEN_KEY);
     console.log("Decoded Payload:", decoded);
@@ -107,7 +104,7 @@ export const profile = async (req, res) => {
 
     res.status(200).json({ user });
   } catch (error) {
-    // YEH SABSE ZAROORI HAI
+   
     console.log("JWT VERIFY ERROR:", error.message); 
     res.status(401).json({ 
       message: "Invalid token", 
@@ -120,16 +117,16 @@ export const profile = async (req, res) => {
 
 
 
-export const logout = ("/logout" , (req, res) => {
+export const logout = (req, res) => {
   res.cookie("token", "", {
     httpOnly: true,
-    secure: true, // Use true if using HTTPS
-    sameSite: "strict",
-    expires: new Date(0), // Sets expiration to 1970 (immediate deletion)
+    secure: true,
+    sameSite: "none",
+    expires: new Date(0), 
   });
 
   res.status(200).json({ message: "Logged out successfully" });
-});
+};
 
 
 
