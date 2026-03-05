@@ -22,15 +22,3 @@ export const booking = async (req , res) => {
     }
 }
 
-export const myBookings = async (req , res) => {
-
-    try{
-        const userId = req.user._id;
-        let myBookings = await Session.find({usreId : userId});
-        res.json({myBookings});
-        
-    }
-    catch{
-      res.json({message : "something went wrong"});
-    }
-}
