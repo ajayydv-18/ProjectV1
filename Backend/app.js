@@ -6,24 +6,26 @@ import { connectToSocket } from "./controllers/socketManager.js";
 import  cors  from "cors";
 import mongoose, { mongo } from "mongoose";
 import cookieParser from "cookie-parser"; // 1. Import
-import userRouter from "./routes/user.js"
+import userRouter from "./routes/user.js";
+
 const app = express();
 const server = createServer(app);
 const io = connectToSocket(server);
 app.use(cookieParser()); 
 app.use(express.json());
 import sessionRouter from "./routes/session.js";
-
+import mentorRouter from "./routes/mentor.js";
 
 app.use(cors({
-  origin: ['http://localhost:5174' , 'https://project-v1-338y.vercel.app'], // <-- exact frontend URL
-  credentials: true               // <-- allow cookies
+  origin: ['http://localhost:5174' , 'https://project-v1-338y.vercel.app'], 
+  credentials: true               
 }));
 
 
 
 app.use("/user" , userRouter);
 app.use("/session" , sessionRouter);
+app.use("/mentor" , mentorRouter);
 
 
 

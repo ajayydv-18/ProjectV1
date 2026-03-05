@@ -51,7 +51,7 @@ export const login = async (req , res)=>{
 
     try{
 
-        const {email , password} = req.body;
+        const {email , password , role} = req.body;
         if(!email || !password){
             return res.status(400).json({ message: "All fields are required" });
         }
@@ -60,6 +60,10 @@ export const login = async (req , res)=>{
         if(!user){
             return res.status(404).json({msg: "User not found"});
         }
+
+        if(user.role != role){
+           return res.status(400).json({ message: `You can not login as ${role}` });
+        }
         const isPasswordCorrect = await bcrypt.compare(password , user.password);
 
 
@@ -67,10 +71,10 @@ export const login = async (req , res)=>{
 
         if(isPasswordCorrect) {
             res.cookie("token", token, {
-                httpOnly: true,         // Security ke liye best (JS access nahi kar payega)
-                secure: true,           // Render (HTTPS) ke liye mandatory hai
-                sameSite: "none",       // Localhost aur Render ke beech communication ke liye must hai
-                maxAge: 24 * 60 * 60 * 1000, // 1 din ki expiry (Iske bina refresh par gayab hogi)
+                httpOnly: true,         
+                secure: true,           
+                sameSite: "none",       
+                maxAge: 24 * 60 * 60 * 1000, 
             });
 
             res.status(201).json({ 
