@@ -8,7 +8,7 @@ import  { uuid } from 'uuidv4';
 export const booking = async (req , res) => {
     
     try{
-     console.log("booking req is coming");
+     
      let formData = req.body;
      console.log(formData);
      let newSession = new Session(formData);
@@ -18,6 +18,7 @@ export const booking = async (req , res) => {
      console.log(newSession);
      res.json({message : "Booking confirmed"});
     }catch(e){
+        console.log(e);
        res.json({message : "Something went wrong"});
     }
 }

@@ -25,7 +25,15 @@ const userSchema = new Schema({
 
    // for mentor
 
-   bio : {
+   specialization : {
+      type: String
+   },
+
+   experience:{
+      type: Number
+   },
+
+   responseTime: {
       type: String
    },
 
@@ -43,6 +51,10 @@ const userSchema = new Schema({
 
    videoPrice : {
       type : Number
+   },
+
+   imageUrl : {
+      type : String
    }
 
 });
