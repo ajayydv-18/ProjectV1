@@ -31,10 +31,10 @@ export const signup = async (req , res)=>{
         let token = createSecretToken(user._id);
         console.log(user);
         res.cookie("token", token, {
-                httpOnly: true,         // Security ke liye best (JS access nahi kar payega)
-                secure: true,           // Render (HTTPS) ke liye mandatory hai
-                sameSite: "none",       // Localhost aur Render ke beech communication ke liye must hai
-                maxAge: 24 * 60 * 60 * 1000, // 1 din ki expiry (Iske bina refresh par gayab hogi)
+                httpOnly: true,         
+                secure: true,           
+                sameSite: "none",       
+                maxAge: 24 * 60 * 60 * 1000, 
         });
         res.status(201).json({ message: "User signed in successfully", success: true, user });
 

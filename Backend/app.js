@@ -8,6 +8,12 @@ import mongoose, { mongo } from "mongoose";
 import cookieParser from "cookie-parser"; // 1. Import
 import userRouter from "./routes/user.js";
 
+import User from "./models/user.js";
+import { createSecretToken } from "./utils/createToken.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+
 const app = express();
 const server = createServer(app);
 const io = connectToSocket(server);
@@ -22,10 +28,16 @@ app.use(cors({
 }));
 
 
+// import dns from 'dns';
+// dns.setServers(["1.1.1.1", "8.8.8.8"]);
+
 
 app.use("/user" , userRouter);
 app.use("/session" , sessionRouter);
 app.use("/mentor" , mentorRouter);
+
+
+
 
 
 
@@ -34,7 +46,7 @@ const start = async ()=>{
     server.listen(8000 , ()=>{
         console.log("server is listening on port: "+8000)
     });
-     let url = process.env.MONGO_URL;
+    let url = 'mongodb+srv://ry957933_db_user:4IZbQnCnH78h830S@lexbridge.ahjrza9.mongodb.net/?appName=lexbridge';
      mongoose.connect(url)
     .then(()=>console.log("database connected"))
     .catch((e)=>console.log("database not connected"));

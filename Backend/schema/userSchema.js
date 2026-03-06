@@ -20,7 +20,31 @@ const userSchema = new Schema({
    password: {
     type: String,
     required: [true, "Your password is required"],
+   },
+
+
+   // for mentor
+
+   bio : {
+      type: String
+   },
+
+   sessions : {
+      type: Number
+   },
+
+   students : {
+      type : Number
+   },
+
+   chatPrice : {
+      type : Number
+   },
+
+   videoPrice : {
+      type : Number
    }
+
 });
 
 

@@ -34,3 +34,21 @@ export const myBookings = async (req , res) => {
       res.json({message : "something went wrong"});
     }
 }
+
+
+
+/// for mentor
+
+export const manageBookings = async (req , res) => {
+
+    try{
+        
+        const mentorId = req.user._id;
+        let bookings = await Session.find({userId : mentorId});
+        res.json({myBookings});
+        res.json({message : "something went wrong"});
+    }
+    catch(err){
+    console.log(err);
+    }
+}

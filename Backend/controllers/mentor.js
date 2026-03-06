@@ -25,10 +25,10 @@ export const login = async (req , res)=>{
 
         if(isPasswordCorrect) {
             res.cookie("token", token, {
-                httpOnly: true,         // Security ke liye best (JS access nahi kar payega)
-                secure: true,           // Render (HTTPS) ke liye mandatory hai
-                sameSite: "none",       // Localhost aur Render ke beech communication ke liye must hai
-                maxAge: 24 * 60 * 60 * 1000, // 1 din ki expiry (Iske bina refresh par gayab hogi)
+                httpOnly: true,         
+                secure: true,           
+                sameSite: "none",       
+                maxAge: 24 * 60 * 60 * 1000, 
             });
 
             res.status(201).json({ 
@@ -47,3 +47,22 @@ export const login = async (req , res)=>{
         res.status(500).json({ message: "Server error", error });
     }
 }
+
+
+export const allMentors = async (req, res) => {
+    try {
+        let mentors = await User.find({ role: "mentor" }).select("-password");
+        res.status(200).json({
+            success: true,
+            count: mentors.length,
+            mentors
+        });
+    }
+    catch (err) {
+        console.error("All Mentors Error:", err);
+        res.status(500).json({ 
+            success: false,
+            message: "Something went wrong while fetching mentors" 
+        });
+    }
+};
