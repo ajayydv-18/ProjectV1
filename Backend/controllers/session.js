@@ -43,13 +43,17 @@ export const myBookings = async (req , res) => {
 export const manageBookings = async (req , res) => {
 
     try{
-        
         const mentorId = req.user._id;
-        let bookings = await Session.find({userId : mentorId});
-        res.json({myBookings});
-        res.json({message : "something went wrong"});
+        let bookings = await Session.find({ mentorId: mentorId });
+        res.status(200).json({
+            success: true,
+            count: bookings.length,
+            bookings
+        });
+        
     }
     catch(err){
     console.log(err);
+    res.json({message : "something went wrong"});
     }
 }

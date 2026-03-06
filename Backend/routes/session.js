@@ -9,6 +9,6 @@ import { isMentor } from "../middleware/isMentor.js";
 
 router.post('/booking' ,protect, booking);
 router.get('/myBookings' , protect, myBookings);
-router.post('./manageBookigs' , protect , isMentor , manageBookings);
+router.post('/manageBookings' , protect , isMentor , manageBookings);
 
 export default router;
