@@ -39,7 +39,9 @@ export const connectToSocket = (server)=>{
         });
 
         socket.on('send-message' , (message)=>{
+            console.log("Message received on server:", message);
             let {data  , path} = message;
+    
             socket.to(path).emit("receive-message", message);
 
         });

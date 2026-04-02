@@ -10,11 +10,13 @@ export const booking = async (req , res) => {
     try{
      
      let formData = req.body;
+     let plan = formData.planType;
      console.log(formData);
      let newSession = new Session(formData);
      let code = uuid();
-     newSession.meetingLink = `https://project-v1-338y.vercel.app/${code}`
-     await newSession.save();
+    if(plan == 'video') newSession.meetingLink = `https://project-v1-338y.vercel.app/vedio/${code}`;
+    if(plan == 'chat') newSession.meetingLink = `https://project-v1-338y.vercel.app/chat/${code}`;
+    await newSession.save();
      console.log(newSession);
      res.json({message : "Booking confirmed"});
     }catch(e){
